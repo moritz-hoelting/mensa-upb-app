@@ -82,6 +82,19 @@ class Dish {
     data['canteens'] = canteens;
     return data;
   }
+
+  bool matchesFilter(DishType filter) {
+    if (filter == DishType.other) {
+      return true;
+    }
+    if (filter == DishType.vegan && vegan == true) {
+      return true;
+    }
+    if (filter == DishType.vegetarian && (vegetarian == true || vegan == true)) {
+      return true;
+    }
+    return false;
+  }
 }
 
 class Prices {
@@ -103,5 +116,32 @@ class Prices {
     data['employees'] = employees;
     data['guests'] = guests;
     return data;
+  }
+}
+
+enum DishType {
+  vegan,
+  vegetarian,
+  other;
+
+  static DishType fromBooleans(bool vegetarian, bool vegan) {
+    if (vegan) {
+      return DishType.vegan;
+    } else if (vegetarian) {
+      return DishType.vegetarian;
+    } else {
+      return DishType.other;
+    }
+  }
+
+  String get filterName {
+    switch (this) {
+      case DishType.vegan:
+        return 'Vegan';
+      case DishType.vegetarian:
+        return 'Vegetarian';
+      case DishType.other:
+        return 'All';
+    }
   }
 }

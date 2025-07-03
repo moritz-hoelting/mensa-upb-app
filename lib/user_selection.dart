@@ -1,7 +1,7 @@
 import 'dart:collection';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mensa_upb/canteen.dart';
+import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/price_level.dart';
 
 class UserSelectionModel extends ChangeNotifier {
@@ -13,6 +13,8 @@ class UserSelectionModel extends ChangeNotifier {
   bool _atriumSelected = false;
 
   PriceLevel _priceLevel = PriceLevel.student;
+
+  DishType _dishFilter = DishType.other;
 
   DateTime _selectedDay = DateUtils.dateOnly(DateTime.now());
 
@@ -78,6 +80,12 @@ class UserSelectionModel extends ChangeNotifier {
   PriceLevel get priceLevel => _priceLevel;
   set priceLevel(PriceLevel level) {
     _priceLevel = level;
+    notifyListeners();
+  }
+
+  DishType get dishFilter => _dishFilter;
+  set dishFilter(DishType filter) {
+    _dishFilter = filter;
     notifyListeners();
   }
 
