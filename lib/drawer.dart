@@ -28,14 +28,17 @@ class MensaSelectionDrawer extends StatelessWidget {
           return ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                ),
-                child: Text(
-                  'Options',
-                  style: theme.textTheme.headlineLarge
-                      ?.copyWith(color: theme.colorScheme.onPrimary),
+              SizedBox(
+                height: 150.0,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                  ),
+                  child: Text(
+                    'Options',
+                    style: theme.textTheme.headlineLarge
+                        ?.copyWith(color: theme.colorScheme.onPrimary),
+                  ),
                 ),
               ),
               ...Canteen.values.map(canteenTileOf),

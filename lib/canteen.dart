@@ -39,4 +39,8 @@ enum Canteen {
         return "Atrium (Lippstadt)";
     }
   }
+
+  String get preferenceKey {
+    return 'is${identifier.substring(0, 1).toUpperCase()}${identifier.substring(1)}Selected';
+  }
 }

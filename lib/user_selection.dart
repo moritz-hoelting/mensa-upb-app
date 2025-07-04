@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mensa_upb/canteen.dart';
 import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/price_level.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserSelectionModel extends ChangeNotifier {
   bool _academicaSelected = true;
@@ -17,6 +18,28 @@ class UserSelectionModel extends ChangeNotifier {
   DishType _dishFilter = DishType.other;
 
   DateTime _selectedDay = DateUtils.dateOnly(DateTime.now());
+
+  late final SharedPreferences _prefs;
+
+  UserSelectionModel() {
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    _academicaSelected = _prefs.getBool(Canteen.academica.preferenceKey) ?? true;
+    _forumSelected = _prefs.getBool(Canteen.forum.preferenceKey) ?? true;
+    _grillcafeSelected = _prefs.getBool(Canteen.grillCafe.preferenceKey) ?? true;
+    _zm2Selected = _prefs.getBool(Canteen.zm2.preferenceKey) ?? false;
+    _basilicaSelected = _prefs.getBool(Canteen.basilica.preferenceKey) ?? false;
+    _atriumSelected = _prefs.getBool(Canteen.atrium.preferenceKey) ?? false;
+
+    _priceLevel = PriceLevel.values[_prefs.getInt('priceLevelSelected') ?? PriceLevel.student.index];
+
+    _dishFilter = DishType.values[_prefs.getInt('dishFilterSelected') ?? DishType.other.index];
+
+    notifyListeners();
+  }
 
   UnmodifiableMapView<Canteen, bool> get canteens {
     return UnmodifiableMapView({
@@ -74,18 +97,21 @@ class UserSelectionModel extends ChangeNotifier {
         _atriumSelected = value;
         break;
     }
+    _prefs.setBool(canteen.preferenceKey, value);
     notifyListeners();
   }
 
   PriceLevel get priceLevel => _priceLevel;
   set priceLevel(PriceLevel level) {
     _priceLevel = level;
+    _prefs.setInt('priceLevelSelected', level.index);
     notifyListeners();
   }
 
   DishType get dishFilter => _dishFilter;
   set dishFilter(DishType filter) {
     _dishFilter = filter;
+    _prefs.setInt('dishFilterSelected', filter.index);
     notifyListeners();
   }
 
