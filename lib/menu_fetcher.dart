@@ -10,16 +10,16 @@ import 'package:mensa_upb/env/env.dart';
 class MenuFetcher {
   static final Map<String, DailyMenu> _menuCache = {};
 
-  static Future<DailyMenu?> fetchMenu(
-      Set<Canteen> canteens, DateTime date) async {
-      
+  static Future<DailyMenu?> fetchMenu(Set<Canteen> canteens, DateTime date,
+      {bool forceFetch = false}) async {
     final formattedDate = DateFormat('yyyy-MM-dd').format(date);
-    final joinedCanteens = canteens.map((canteen) => canteen.identifier).sorted().join(',');
+    final joinedCanteens =
+        canteens.map((canteen) => canteen.identifier).sorted().join(',');
 
     final cacheKey = '$formattedDate-$joinedCanteens';
     final cachedValue = _menuCache[cacheKey];
 
-    if (cachedValue == null) {
+    if (forceFetch || cachedValue == null) {
       var res = await http.get(Uri.parse(
         '${Env.mensaApiUrl}/menu/$joinedCanteens?date=$formattedDate',
       ));

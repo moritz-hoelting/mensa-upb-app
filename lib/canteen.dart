@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 enum Canteen {
   academica,
   forum,
@@ -42,5 +44,11 @@ enum Canteen {
 
   String get preferenceKey {
     return 'is${identifier.substring(0, 1).toUpperCase()}${identifier.substring(1)}Selected';
+  }
+
+  static Canteen? fromIdentifier(String identifier) {
+    return Canteen.values.firstWhereOrNull(
+      (canteen) => canteen.identifier == identifier,
+    );
   }
 }

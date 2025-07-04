@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mensa_upb/canteen.dart';
 import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/user_selection.dart';
@@ -92,6 +93,10 @@ class DishCard extends StatelessWidget {
                             spacing: 6,
                             runSpacing: 4,
                             children: canteens.map((canteen) {
+                              var canteenName =
+                                  Canteen.fromIdentifier(canteen.toLowerCase())
+                                          ?.displayName ??
+                                      canteen;
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 6),
@@ -100,7 +105,7 @@ class DishCard extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(
-                                  canteen,
+                                  canteenName,
                                   style: const TextStyle(
                                       fontSize: 12, color: Colors.black87),
                                 ),

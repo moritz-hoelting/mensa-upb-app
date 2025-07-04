@@ -13,24 +13,24 @@ class MensaUpbApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // Application name
-      onGenerateTitle: (BuildContext context) =>
-          AppLocalizations.of(context)!.appTitle,
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 27, 43, 147),
-          primary: Color.fromARGB(255, 37, 70, 183),
+    return ChangeNotifierProvider(
+      create: (context) => UserSelectionModel(),
+      child: MaterialApp(
+        // Application name
+        onGenerateTitle: (BuildContext context) =>
+            AppLocalizations.of(context)!.appTitle,
+        // Application theme data, you can set the colors for the application as
+        // you want
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Color.fromARGB(255, 27, 43, 147),
+            primary: Color.fromARGB(255, 37, 70, 183),
+          ),
         ),
-      ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      // A widget which will be started on application startup
-      home: ChangeNotifierProvider(
-        create: (context) => UserSelectionModel(),
-        child: const HomePage(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        // A widget which will be started on application startup
+        home: const HomePage(),
       ),
     );
   }

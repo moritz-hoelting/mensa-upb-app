@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mensa_upb/canteen.dart';
-import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
-import 'package:mensa_upb/price_level.dart';
+import 'package:mensa_upb/settings_screen.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
@@ -29,78 +28,35 @@ class MensaSelectionDrawer extends StatelessWidget {
           return ListView(
             padding: EdgeInsets.only(bottom: 16.0),
             children: <Widget>[
-              SizedBox(
-                height: 150.0,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 27, 43, 147),
-                        Color.fromARGB(255, 55, 117, 199),
-                        Color.fromARGB(255, 80, 168, 203),
-                        Color.fromARGB(255, 113, 208, 209),
-                      ],
-                      transform: GradientRotation(-0.5),
-                    ),
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color.fromARGB(255, 27, 43, 147),
+                      const Color.fromARGB(255, 55, 117, 199),
+                      const Color.fromARGB(255, 80, 168, 203),
+                      const Color.fromARGB(255, 113, 208, 209),
+                    ],
+                    transform: GradientRotation(-0.5),
                   ),
-                  child: Text(
-                    AppLocalizations.of(context)!.optionsHeader,
-                    style: theme.textTheme.headlineLarge
-                        ?.copyWith(color: theme.colorScheme.onPrimary),
-                  ),
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.optionsHeader,
+                  style: theme.textTheme.headlineLarge
+                      ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
               ),
               ...Canteen.values.map(canteenTileOf),
-              Container(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: FractionallySizedBox(
-                  alignment: Alignment.center,
-                  widthFactor: 0.9,
-                  child: Column(
-                    spacing: 16.0,
-                    children: [
-                      DropdownButtonFormField<PriceLevel>(
-                        value: userSelection.priceLevel,
-                        items: PriceLevel.values
-                            .map((e) => DropdownMenuItem(
-                                value: e, child: Text(e.displayName(context))))
-                            .toList(),
-                        onChanged: (value) {
-                          userSelection.priceLevel =
-                              value ?? PriceLevel.student;
-                        },
-                        icon: const Icon(Icons.attach_money),
-                        decoration: InputDecoration(
-                          labelText:
-                              '${AppLocalizations.of(context)!.priceLevelLabel}:',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      DropdownButtonFormField<DishType>(
-                        value: userSelection.dishFilter,
-                        items: DishType.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.filterName(context)),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (value) {
-                          userSelection.dishFilter = value ?? DishType.other;
-                        },
-                        icon: Icon(userSelection.dishFilter == DishType.other
-                            ? Icons.filter_list_off
-                            : Icons.filter_list),
-                        decoration: InputDecoration(
-                          labelText:
-                              '${AppLocalizations.of(context)!.dishFilterLabel}:',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              const Divider(),
+              ListTile(
+                title: Text('Settings'),
+                leading: const Icon(Icons.settings),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                },
               ),
             ],
           );
