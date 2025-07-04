@@ -17,6 +17,24 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
   bool previousDayEnabled = false;
   bool nextDayEnabled = true;
 
+  bool _selectDate(DateTime date, UserSelectionModel userSelection) {
+    DateTime onlyDate = DateUtils.dateOnly(date);
+    DateTime limitPast =
+        DateUtils.dateOnly(DateTime.now());
+    DateTime limitFuture = DateUtils.dateOnly(
+        DateTime.now().add(const Duration(days: 7)));
+    if (onlyDate.isBefore(limitFuture.add(const Duration(seconds: 1))) && onlyDate.isAfter(limitPast.subtract(const Duration(seconds: 1)))) {
+      userSelection.selectedDay = onlyDate;
+    } else {
+      return false;
+    }
+    setState(() {
+      previousDayEnabled = !onlyDate.isAtSameMomentAs(limitPast);
+      nextDayEnabled = !onlyDate.isAtSameMomentAs(limitFuture);
+    });
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -33,18 +51,22 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
                       DateTime previousDay = DateUtils.dateOnly(userSelection
                           .selectedDay
                           .subtract(const Duration(days: 1)));
-                      nextDayEnabled = true;
-                      if (previousDay.isBefore(
-                          DateUtils.dateOnly(DateTime.now())
-                              .add(const Duration(seconds: 1)))) {
-                        previousDayEnabled = false;
-                      }
-
-                      userSelection.selectedDay = previousDay;
+                      _selectDate(previousDay, userSelection);
                     }
                   : null,
             ),
             InkWell(
+              onTap: () async {
+                DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateUtils.dateOnly(DateTime.now()),
+                    lastDate: DateUtils.dateOnly(
+                        DateTime.now().add(const Duration(days: 7))),
+                    initialDate: userSelection.selectedDay);
+                if (selectedDate != null) {
+                  _selectDate(selectedDate, userSelection);
+                }
+              },
               onLongPress: () {
                 previousDayEnabled = false;
                 nextDayEnabled = true;
@@ -64,13 +86,7 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
                       DateTime nextDay = DateUtils.dateOnly(userSelection
                           .selectedDay
                           .add(const Duration(days: 1)));
-                      previousDayEnabled = true;
-                      if (nextDay.isAfter(
-                          DateUtils.dateOnly(DateTime.now())
-                              .add(const Duration(days: 7, seconds: -1)))) {
-                        nextDayEnabled = false;
-                      }
-                      userSelection.selectedDay = nextDay;
+                      _selectDate(nextDay, userSelection);
                     }
                   : null,
             )
