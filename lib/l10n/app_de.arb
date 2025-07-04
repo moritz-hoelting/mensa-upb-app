@@ -1,0 +1,71 @@
+{
+    "@@locale": "de",
+    "appTitle": "Mensa UPB",
+    "@appTitle": {
+        "description": "Der Titel der Mensa UPB App."
+    },
+    "previousDayTooltip": "Vorheriger Tag",
+    "@previousDayTooltip": {
+        "description": "Tooltip für den Knopf für den vorherigen Tag."
+    },
+    "previousDayErrorMessage": "Kann nicht weiter als heute zurückgehen",
+    "@previousDayErrorMessage": {
+        "description": "Fehlermeldung, wenn versucht wird, einen Tag vor heute auszuwählen."
+    },
+    "nextDayTooltip": "Nächster Tag",
+    "@nextDayTooltip": {
+        "description": "Tooltip für den Knopf für den nächsten Tag."
+    },
+    "nextDayErrorMessage": "Kann nicht weiter als 7 Tage in die Zukunft gehen",
+    "@nextDayErrorMessage": {
+        "description": "Fehlermeldung, wenn versucht wird, einen Tag mehr als 7 Tage in die Zukunft auszuwählen."
+    },
+    "dishTypeVegan": "Vegan",
+    "@dishTypeVegan": {
+        "description": "Bezeichnung für vegane Gerichte."
+    },
+    "dishTypeVegetarian": "Vegetarisch",
+    "@dishTypeVegetarian": {
+        "description": "Bezeichnung für vegetarische Gerichte."
+    },
+    "dishFilterAll": "Alle",
+    "@dishFilterAll": {
+        "description": "Bezeichnung für den 'Alle' Filter in der Gerichteauswahl."
+    },
+    "optionsHeader": "Optionen",
+    "@optionsHeader": {
+        "description": "Überschrift für den Optionsbereich im Drawer."
+    },
+    "priceLevelLabel": "Preiskategorie",
+    "@priceLevelLabel": {
+        "description": "Bezeichnung für die Preiskategorie in den Optionen."
+    },
+    "dishFilterLabel": "Gerichtfilter",
+    "@dishFilterLabel": {
+        "description": "Bezeichnung für den Gerichtfilter in den Optionen."
+    },
+    "menuFetchErrorMessage": "Kein Menü für den ausgewählten Tag verfügbar",
+    "@menuFetchErrorMessage": {
+        "description": "Fehlermeldung, wenn kein Menü für den ausgewählten Tag geladen werden konnte."
+    },
+    "canteenClosedMessage": "Mensa geschlossen",
+    "@canteenClosedMessage": {
+        "description": "Nachricht, die anzeigt, dass die Mensa für den ausgewählten Tag geschlossen ist."
+    },
+    "noDishesMatchingFilterMessage": "Keine Gerichte entsprechen deinem Filter",
+    "@noDishesMatchingFilterMessage": {
+        "description": "Nachricht, die angezeigt wird, wenn keine Gerichte dem ausgewählten Filter entsprechen."
+    },
+    "priceLevelStudent": "Student",
+    "@priceLevelStudent": {
+        "description": "Bezeichnung für den Studentenpreis."
+    },
+    "priceLevelEmployee": "Mitarbeiter",
+    "@priceLevelEmployee": {
+        "description": "Bezeichnung für den Mitarbeiterpreis."
+    },
+    "priceLevelGuest": "Gast",
+    "@priceLevelGuest": {
+        "description": "Bezeichnung für den Gastpreis."
+    }
+}

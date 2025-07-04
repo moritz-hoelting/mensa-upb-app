@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mensa_upb/dish.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
@@ -113,33 +114,27 @@ class DishCard extends StatelessWidget {
 
                     // Vegan/Vegetarian Icon
                     (hideTypeIcon
-                        ? const SizedBox.shrink()
+                        ? const SizedBox.shrink() as Widget
                         : Row(
                             children: [
                               Icon(
-                                type == DishType.vegan
-                                    ? Icons.eco
-                                    : type == DishType.vegetarian
-                                        ? Icons.spa
-                                        : Icons.restaurant,
+                                type == DishType.vegan ? Icons.eco : Icons.spa,
                                 color: type == DishType.vegan
                                     ? Colors.green
-                                    : type == DishType.vegetarian
-                                        ? Colors.lightGreen
-                                        : Colors.grey,
+                                    : Colors.lightGreen,
                                 size: 20,
                               ),
                               const SizedBox(width: 6),
                               Text(
                                 type == DishType.vegan
-                                    ? 'Vegan'
-                                    : type == DishType.vegetarian
-                                        ? 'Vegetarian'
-                                        : 'Other',
+                                    ? AppLocalizations.of(context)!
+                                        .dishTypeVegan
+                                    : AppLocalizations.of(context)!
+                                        .dishTypeVegetarian,
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],
-                          ))
+                          ) as Widget),
                   ],
                 );
               },

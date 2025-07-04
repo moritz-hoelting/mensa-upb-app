@@ -16,6 +16,8 @@ dependencies:
   provider: ^6.1.5
   collection: ^1.19.1
   shared_preferences: ^2.5.3
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   build_runner: ^2.5.4
@@ -26,6 +28,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

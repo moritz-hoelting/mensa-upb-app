@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/dish_card.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/menu_fetcher.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
@@ -21,23 +22,24 @@ class HomePageBody extends StatelessWidget {
           return FutureBuilder(
               future: menu,
               builder: (context, snapshot) {
+                var menuFetchErrorWidget = Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      size: 50,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.menuFetchErrorMessage,
+                      textScaler: const TextScaler.linear(2),
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                );
                 if (snapshot.hasData) {
                   if (snapshot.data == null) {
-                    return const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          "No menu available for this day",
-                          textScaler: TextScaler.linear(2),
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    );
+                    return menuFetchErrorWidget;
                   }
 
                   var json = snapshot.data!;
@@ -48,18 +50,18 @@ class HomePageBody extends StatelessWidget {
                   ];
 
                   if (dishes.isEmpty) {
-                    return const Column(
+                    return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.timer_off_outlined,
                           size: 50,
                           color: Colors.grey,
                         ),
                         Text(
-                          "Canteen is closed",
-                          textScaler: TextScaler.linear(2),
-                          style: TextStyle(color: Colors.grey),
+                          AppLocalizations.of(context)!.canteenClosedMessage,
+                          textScaler: const TextScaler.linear(2),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ],
                     );
@@ -71,18 +73,19 @@ class HomePageBody extends StatelessWidget {
                       .toList();
 
                   if (filteredDishes.isEmpty) {
-                    return const Column(
+                    return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.filter_alt_off,
                           size: 50,
                           color: Colors.grey,
                         ),
                         Text(
-                          "No dishes match your filter",
-                          textScaler: TextScaler.linear(2),
-                          style: TextStyle(color: Colors.grey),
+                          AppLocalizations.of(context)!
+                              .noDishesMatchingFilterMessage,
+                          textScaler: const TextScaler.linear(2),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ],
                     );
@@ -110,10 +113,7 @@ class HomePageBody extends StatelessWidget {
                         .toList(),
                   );
                 } else if (snapshot.hasError) {
-                  return const Text(
-                    "An error occured fetching the menu",
-                    textScaler: TextScaler.linear(3),
-                  );
+                  return menuFetchErrorWidget;
                 } else {
                   return const CircularProgressIndicator();
                 }

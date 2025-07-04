@@ -1,18 +1,20 @@
+import 'package:flutter/widgets.dart';
 import 'package:mensa_upb/dish.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
 
 enum PriceLevel {
   student,
   employee,
   guest;
 
-  String get displayName {
+  String displayName(BuildContext context) {
     switch (this) {
       case student:
-        return 'Student';
+        return AppLocalizations.of(context)!.priceLevelStudent;
       case employee:
-        return 'Employee';
+        return AppLocalizations.of(context)!.priceLevelEmployee;
       case guest:
-        return 'Guest';
+        return AppLocalizations.of(context)!.priceLevelGuest;
     }
   }
 

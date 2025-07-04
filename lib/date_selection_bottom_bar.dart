@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class DateSelectionBottomBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
-              tooltip: 'Previous day',
+              tooltip: AppLocalizations.of(context)!.previousDayTooltip,
               icon: const Icon(Icons.chevron_left),
               onPressed: () {
                 DateTime previousDay = DateUtils.dateOnly(userSelection
@@ -24,8 +25,8 @@ class DateSelectionBottomBar extends StatelessWidget {
                 if (previousDay.isBefore(DateUtils.dateOnly(DateTime.now()))) {
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(const SnackBar(
-                      content: Text('Cannot go back further than today')));
+                  ).showSnackBar(SnackBar(
+                      content: Text(AppLocalizations.of(context)!.previousDayErrorMessage)));
                 } else {
                   userSelection.selectedDay = previousDay;
                 }
@@ -41,7 +42,7 @@ class DateSelectionBottomBar extends StatelessWidget {
                       .format(userSelection.selectedDay))),
             ),
             IconButton(
-              tooltip: 'Next day',
+              tooltip: AppLocalizations.of(context)!.nextDayTooltip,
               icon: const Icon(Icons.chevron_right),
               onPressed: () {
                 DateTime limit = DateUtils.dateOnly(DateTime.now())
@@ -51,8 +52,8 @@ class DateSelectionBottomBar extends StatelessWidget {
                 if (nextDay.isAfter(limit)) {
                   ScaffoldMessenger.of(
                     context,
-                  ).showSnackBar(const SnackBar(
-                      content: Text('Cannot go farther than 7 days')));
+                  ).showSnackBar(SnackBar(
+                      content: Text(AppLocalizations.of(context)!.nextDayErrorMessage)));
                 } else {
                   userSelection.selectedDay = nextDay;
                 }

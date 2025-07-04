@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
+
 class DailyMenu {
   String? date;
   List<Dish>? mainDishes;
@@ -90,7 +93,8 @@ class Dish {
     if (filter == DishType.vegan && vegan == true) {
       return true;
     }
-    if (filter == DishType.vegetarian && (vegetarian == true || vegan == true)) {
+    if (filter == DishType.vegetarian &&
+        (vegetarian == true || vegan == true)) {
       return true;
     }
     return false;
@@ -134,14 +138,14 @@ enum DishType {
     }
   }
 
-  String get filterName {
+  String filterName(BuildContext context) {
     switch (this) {
       case DishType.vegan:
-        return 'Vegan';
+        return AppLocalizations.of(context)!.dishTypeVegan;
       case DishType.vegetarian:
-        return 'Vegetarian';
+        return AppLocalizations.of(context)!.dishTypeVegetarian;
       case DishType.other:
-        return 'All';
+        return AppLocalizations.of(context)!.dishFilterAll;
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mensa_upb/date_selection_bottom_bar.dart';
 import 'package:mensa_upb/drawer.dart';
 import 'package:mensa_upb/home_page_body.dart';
+import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,8 @@ class MensaUpbApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // Application name
-      title: 'Mensa UPB',
+      onGenerateTitle: (BuildContext context) =>
+          AppLocalizations.of(context)!.appTitle,
       // Application theme data, you can set the colors for the application as
       // you want
       theme: ThemeData(
@@ -22,18 +24,19 @@ class MensaUpbApp extends StatelessWidget {
           seedColor: Colors.blue,
         ),
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       // A widget which will be started on application startup
       home: ChangeNotifierProvider(
         create: (context) => UserSelectionModel(),
-        child: const HomePage(title: 'Mensa UPB'),
+        child: const HomePage(),
       ),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  final String title;
-  const HomePage({super.key, required this.title});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          AppLocalizations.of(context)!.appTitle,
           style: TextStyle(
             color: theme.colorScheme.onPrimary,
           ),

@@ -1,0 +1,71 @@
+{
+    "@@locale": "en",
+    "appTitle": "Mensa UPB",
+    "@appTitle": {
+        "description": "The title of the Mensa UPB application."
+    },
+    "previousDayTooltip": "Previous day",
+    "@previousDayTooltip": {
+        "description": "Tooltip for the button to select the previous day."
+    },
+    "previousDayErrorMessage": "Cannot go back further than today",
+    "@previousDayErrorMessage": {
+        "description": "Error message when trying to select a day before today."
+    },
+    "nextDayTooltip": "Next day",
+    "@nextDayTooltip": {
+        "description": "Tooltip for the button to select the next day."
+    },
+    "nextDayErrorMessage": "Cannot go forward further than 7 days",
+    "@nextDayErrorMessage": {
+        "description": "Error message when trying to select a day more than 7 days in the future."
+    },
+    "dishTypeVegan": "Vegan",
+    "@dishTypeVegan": {
+        "description": "Label for vegan dishes."
+    },
+    "dishTypeVegetarian": "Vegetarian",
+    "@dishTypeVegetarian": {
+        "description": "Label for vegetarian dishes."
+    },
+    "dishFilterAll": "All",
+    "@dishFilterAll": {
+        "description": "Label for the 'All' filter in the dish selection."
+    },
+    "optionsHeader": "Options",
+    "@optionsHeader": {
+        "description": "Header for the options section in the drawer."
+    },
+    "priceLevelLabel": "Price level",
+    "@priceLevelLabel": {
+        "description": "Label for the price level in the options."
+    },
+    "dishFilterLabel": "Dish filter",
+    "@dishFilterLabel": {
+        "description": "Label for the dish filter in the options."
+    },
+    "menuFetchErrorMessage": "No menu available for this day",
+    "@menuFetchErrorMessage": {
+        "description": "Error message when the menu for the selected day could not be loaded."
+    },
+    "canteenClosedMessage": "Canteen closed",
+    "@canteenClosedMessage": {
+        "description": "Label indicating that the canteen is closed for the selected day."
+    },
+    "noDishesMatchingFilterMessage": "No dishes match your filter",
+    "@noDishesMatchingFilterMessage": {
+        "description": "Message displayed when no dishes match the selected filter."
+    },
+    "priceLevelStudent": "Student",
+    "@priceLevelStudent": {
+        "description": "Label for the student price level."
+    },
+    "priceLevelEmployee": "Employee",
+    "@priceLevelEmployee": {
+        "description": "Label for the employee price level."
+    },
+    "priceLevelGuest": "Guest",
+    "@priceLevelGuest": {
+        "description": "Label for the guest price level."
+    }
+}
