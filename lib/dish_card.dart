@@ -47,7 +47,9 @@ class DishCard extends StatelessWidget {
                 : Container(
                     height: 200,
                     width: double.infinity,
-                    color: Colors.grey[300],
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.grey[300]
+                        : Colors.grey[800],
                     child: const Icon(
                       Icons.image_not_supported,
                       size: 50,
@@ -133,10 +135,8 @@ class DishCard extends StatelessWidget {
                               const SizedBox(width: 6),
                               Text(
                                 type == DishType.vegan
-                                    ? localizations
-                                        .dishTypeVegan
-                                    : localizations
-                                        .dishTypeVegetarian,
+                                    ? localizations.dishTypeVegan
+                                    : localizations.dishTypeVegetarian,
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],

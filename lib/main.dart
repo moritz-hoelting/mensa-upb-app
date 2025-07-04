@@ -13,6 +13,8 @@ class MensaUpbApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final seedColor = Color.fromARGB(255, 27, 43, 147);
+
     return ChangeNotifierProvider(
       create: (context) => UserSelectionModel(),
       child: MaterialApp(
@@ -23,10 +25,18 @@ class MensaUpbApp extends StatelessWidget {
         // you want
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Color.fromARGB(255, 27, 43, 147),
+            seedColor: seedColor,
             primary: Color.fromARGB(255, 37, 70, 183),
+            brightness: Brightness.light,
           ),
         ),
+        darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: seedColor,
+            brightness: Brightness.dark,
+          ),
+        ),
+        themeMode: ThemeMode.system,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         // A widget which will be started on application startup

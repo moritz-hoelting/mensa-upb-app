@@ -44,8 +44,10 @@ class MensaSelectionDrawer extends StatelessWidget {
                 ),
                 child: Text(
                   localizations.optionsHeader,
-                  style: theme.textTheme.headlineLarge
-                      ?.copyWith(color: theme.colorScheme.onPrimary),
+                  style: theme.textTheme.headlineLarge?.copyWith(
+                      color: theme.brightness == Brightness.light
+                          ? theme.colorScheme.onPrimary
+                          : theme.colorScheme.onSurface),
                 ),
               ),
               ...Canteen.values.map(canteenTileOf),
