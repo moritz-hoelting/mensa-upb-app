@@ -25,6 +25,7 @@ class DishCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String formattedPrice = '${price.replaceAll('.', ',')}€';
     final hideTypeIcon = type == DishType.other;
+    final localizations = AppLocalizations.of(context)!;
 
     return Card(
       elevation: 4,
@@ -132,9 +133,9 @@ class DishCard extends StatelessWidget {
                               const SizedBox(width: 6),
                               Text(
                                 type == DishType.vegan
-                                    ? AppLocalizations.of(context)!
+                                    ? localizations
                                         .dishTypeVegan
-                                    : AppLocalizations.of(context)!
+                                    : localizations
                                         .dishTypeVegetarian,
                                 style: const TextStyle(fontSize: 14),
                               ),

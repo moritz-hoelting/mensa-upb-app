@@ -14,10 +14,11 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    var localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          localizations.settingsHeader,
           style: TextStyle(
             color: theme.colorScheme.onPrimary,
           ),
@@ -33,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
           child: ListView(
             children: [
               _Section(
-                title: 'General',
+                title: localizations.settingsHeader,
                 children: [
                   Consumer<UserSelectionModel>(
                     builder: (context, userSelection, child) =>
@@ -56,8 +57,7 @@ class SettingsScreen extends StatelessWidget {
                             },
                             icon: const Icon(Icons.attach_money),
                             decoration: InputDecoration(
-                              labelText:
-                                  '${AppLocalizations.of(context)!.priceLevelLabel}:',
+                              labelText: '${localizations.priceLevelLabel}:',
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -80,8 +80,7 @@ class SettingsScreen extends StatelessWidget {
                                     ? Icons.filter_list_off
                                     : Icons.filter_list),
                             decoration: InputDecoration(
-                              labelText:
-                                  '${AppLocalizations.of(context)!.dishFilterLabel}:',
+                              labelText: '${localizations.dishFilterLabel}:',
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -94,7 +93,7 @@ class SettingsScreen extends StatelessWidget {
                     child: const Divider(),
                   ),
                   _Section(
-                    title: 'Information',
+                    title: localizations.aboutHeader,
                     children: [
                       ListTile(
                         title: FutureBuilder(
@@ -107,8 +106,11 @@ class SettingsScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       [
-                                        '${packageInfo.appName} version ${packageInfo.version}',
-                                        'Made by ${Env.appAuthor}',
+                                        localizations.appNameVersionDescriptor(
+                                            packageInfo.appName,
+                                            packageInfo.version),
+                                        localizations
+                                            .madeByDescriptor(Env.appAuthor),
                                       ].join('\n'),
                                     ),
                                     Wrap(
@@ -121,8 +123,8 @@ class SettingsScreen extends StatelessWidget {
                                                       Env.fundingUrl!));
                                                 },
                                                 child: Chip(
-                                                  label:
-                                                      Text('Support this app'),
+                                                  label: Text(localizations
+                                                      .supportAppDescriptor),
                                                   avatar: const Icon(
                                                     Icons.favorite,
                                                     color: Colors.redAccent,
@@ -148,7 +150,7 @@ class SettingsScreen extends StatelessWidget {
                                   ],
                                 );
                               } else {
-                                return const Text('Loading...');
+                                return Text('${localizations.loadingMessage}...');
                               }
                             }),
                         leading: const Icon(Icons.info),

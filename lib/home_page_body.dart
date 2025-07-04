@@ -15,6 +15,7 @@ class HomePageBody extends StatelessWidget {
     return Center(
       child: Consumer<UserSelectionModel>(
         builder: (context, userSelection, child) {
+          final localizations = AppLocalizations.of(context)!;
           var menu = MenuFetcher.fetchMenu(
             userSelection.selectedCanteens,
             userSelection.selectedDay,
@@ -34,7 +35,7 @@ class HomePageBody extends StatelessWidget {
                       color: errorColor,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.menuFetchErrorMessage,
+                      localizations.menuFetchErrorMessage,
                       textScaler: const TextScaler.linear(2),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: errorColor),
@@ -64,7 +65,7 @@ class HomePageBody extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.canteenClosedMessage,
+                          localizations.canteenClosedMessage,
                           textScaler: const TextScaler.linear(2),
                           textAlign: TextAlign.center,
                           style: const TextStyle(color: Colors.grey),
@@ -89,7 +90,7 @@ class HomePageBody extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         Text(
-                          AppLocalizations.of(context)!
+                          localizations
                               .noDishesMatchingFilterMessage,
                           textScaler: const TextScaler.linear(2),
                           textAlign: TextAlign.center,

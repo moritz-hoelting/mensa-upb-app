@@ -23,6 +23,8 @@ class MensaSelectionDrawer extends StatelessWidget {
             );
           }
 
+          final localizations = AppLocalizations.of(context)!;
+
           var theme = Theme.of(context);
 
           return ListView(
@@ -41,7 +43,7 @@ class MensaSelectionDrawer extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  AppLocalizations.of(context)!.optionsHeader,
+                  localizations.optionsHeader,
                   style: theme.textTheme.headlineLarge
                       ?.copyWith(color: theme.colorScheme.onPrimary),
                 ),
@@ -49,13 +51,15 @@ class MensaSelectionDrawer extends StatelessWidget {
               ...Canteen.values.map(canteenTileOf),
               const Divider(),
               ListTile(
-                title: Text('Settings'),
+                title: Text(localizations.settingsHeader),
                 leading: const Icon(Icons.settings),
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingsScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsScreen(),
+                    ),
+                  );
                 },
               ),
             ],

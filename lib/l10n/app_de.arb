@@ -8,17 +8,9 @@
     "@previousDayTooltip": {
         "description": "Tooltip für den Knopf für den vorherigen Tag."
     },
-    "previousDayErrorMessage": "Kann nicht weiter als heute zurückgehen",
-    "@previousDayErrorMessage": {
-        "description": "Fehlermeldung, wenn versucht wird, einen Tag vor heute auszuwählen."
-    },
     "nextDayTooltip": "Nächster Tag",
     "@nextDayTooltip": {
         "description": "Tooltip für den Knopf für den nächsten Tag."
-    },
-    "nextDayErrorMessage": "Kann nicht weiter als 7 Tage in die Zukunft gehen",
-    "@nextDayErrorMessage": {
-        "description": "Fehlermeldung, wenn versucht wird, einen Tag mehr als 7 Tage in die Zukunft auszuwählen."
     },
     "dishTypeVegan": "Vegan",
     "@dishTypeVegan": {
@@ -67,5 +59,46 @@
     "priceLevelGuest": "Gast",
     "@priceLevelGuest": {
         "description": "Bezeichnung für den Gastpreis."
+    },
+    "settingsHeader": "Einstellungen",
+    "@settingsHeader": {
+        "description": "Überschrift für den Einstellungsbereich im Drawer."
+    },
+    "generalSettingsHeader": "Allgemein",
+    "@generalSettingsHeader": {
+        "description": "Überschrift für den allgemeinen Einstellungsbereich im Drawer."
+    },
+    "aboutHeader": "Über die App",
+    "@aboutHeader": {
+        "description": "Überschrift für den Über die App Bereich im Drawer."
+    },
+    "appNameVersionDescriptor": "{name} Version {version}",
+    "@appNameVersionDescriptor": {
+        "description": "Descriptor für den Namen und die Version der App, verwendet im Über die App Bereich.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            },
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "madeByDescriptor": "Enwickelt von {author}",
+    "@madeByDescriptor": {
+        "description": "Descriptor für den Autor der App, verwendet im Über die App Bereich.",
+        "placeholders": {
+            "author": {
+                "type": "String"
+            }
+        }
+    },
+    "supportAppDescriptor": "Unterstütze diese App",
+    "@supportAppDescriptor": {
+        "description": "Descriptor für die Unterstützung der App, verwendet im Über die App Bereich."
+    },
+    "loadingMessage": "Laden...",
+    "@loadingMessage": {
+        "description": "Nachricht, die angezeigt wird, während Daten geladen werden."
     }
 }

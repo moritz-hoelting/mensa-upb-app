@@ -8,17 +8,9 @@
     "@previousDayTooltip": {
         "description": "Tooltip for the button to select the previous day."
     },
-    "previousDayErrorMessage": "Cannot go back further than today",
-    "@previousDayErrorMessage": {
-        "description": "Error message when trying to select a day before today."
-    },
     "nextDayTooltip": "Next day",
     "@nextDayTooltip": {
         "description": "Tooltip for the button to select the next day."
-    },
-    "nextDayErrorMessage": "Cannot go forward further than 7 days",
-    "@nextDayErrorMessage": {
-        "description": "Error message when trying to select a day more than 7 days in the future."
     },
     "dishTypeVegan": "Vegan",
     "@dishTypeVegan": {
@@ -67,5 +59,46 @@
     "priceLevelGuest": "Guest",
     "@priceLevelGuest": {
         "description": "Label for the guest price level."
+    },
+    "settingsHeader": "Settings",
+    "@settingsHeader": {
+        "description": "Header for the settings section in the drawer."
+    },
+    "generalSettingsHeader": "General",
+    "@generalSettingsHeader": {
+        "description": "Header for the general settings section in the settings screen."
+    },
+    "aboutHeader": "About",
+    "@aboutHeader": {
+        "description": "Header for the about section in the settings screen."
+    },
+    "appNameVersionDescriptor": "{name} version {version}",
+    "@appNameVersionDescriptor": {
+        "description": "Descriptor for the app name and version, used in the about section.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            },
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "madeByDescriptor": "Made by {author}",
+    "@madeByDescriptor": {
+        "description": "Descriptor for the author of the app, used in the about section.",
+        "placeholders": {
+            "author": {
+                "type": "String"
+            }
+        }
+    },
+    "supportAppDescriptor": "Support this app",
+    "@supportAppDescriptor": {
+        "description": "Descriptor for the support app section in the settings screen."
+    },
+    "loadingMessage": "Loading...",
+    "@loadingMessage": {
+        "description": "Message displayed while the app is loading data."
     }
 }
