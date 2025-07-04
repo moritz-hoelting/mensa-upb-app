@@ -33,7 +33,15 @@ class MensaSelectionDrawer extends StatelessWidget {
                 height: 150.0,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 27, 43, 147),
+                        Color.fromARGB(255, 55, 117, 199),
+                        Color.fromARGB(255, 80, 168, 203),
+                        Color.fromARGB(255, 113, 208, 209),
+                      ],
+                      transform: GradientRotation(-0.5),
+                    ),
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.optionsHeader,
@@ -63,7 +71,8 @@ class MensaSelectionDrawer extends StatelessWidget {
                         },
                         icon: const Icon(Icons.attach_money),
                         decoration: InputDecoration(
-                          labelText: '${AppLocalizations.of(context)!.priceLevelLabel}:',
+                          labelText:
+                              '${AppLocalizations.of(context)!.priceLevelLabel}:',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -84,7 +93,8 @@ class MensaSelectionDrawer extends StatelessWidget {
                             ? Icons.filter_list_off
                             : Icons.filter_list),
                         decoration: InputDecoration(
-                          labelText: '${AppLocalizations.of(context)!.dishFilterLabel}:',
+                          labelText:
+                              '${AppLocalizations.of(context)!.dishFilterLabel}:',
                           border: OutlineInputBorder(),
                         ),
                       ),

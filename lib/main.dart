@@ -21,7 +21,8 @@ class MensaUpbApp extends StatelessWidget {
       // you want
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: Color.fromARGB(255, 27, 43, 147),
+          primary: Color.fromARGB(255, 37, 70, 183),
         ),
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
