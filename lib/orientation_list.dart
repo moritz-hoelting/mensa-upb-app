@@ -5,17 +5,20 @@ class OrientationList extends StatelessWidget {
   final List<Widget> children;
   final double rowGap;
   final double columnGap;
+  final EdgeInsetsGeometry? padding;
 
   const OrientationList({
     super.key,
     required this.children,
     this.rowGap = 0.0,
     this.columnGap = 0.0,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: padding,
       child: OrientationBuilder(
         builder: (context, _) {
           final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;

@@ -23,20 +23,21 @@ class HomePageBody extends StatelessWidget {
           return FutureBuilder(
               future: menu,
               builder: (context, snapshot) {
+                var errorColor = Theme.of(context).colorScheme.error;
                 var menuFetchErrorWidget = Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.error_outline,
                       size: 50,
-                      color: Colors.grey,
+                      color: errorColor,
                     ),
                     Text(
                       AppLocalizations.of(context)!.menuFetchErrorMessage,
                       textScaler: const TextScaler.linear(2),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.grey),
+                      style: TextStyle(color: errorColor),
                     ),
                   ],
                 );
@@ -101,6 +102,7 @@ class HomePageBody extends StatelessWidget {
                   return FractionallySizedBox(
                     widthFactor: 0.9,
                     child: OrientationList(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
                       children: filteredDishes
                           .map(
                             (dish) => DishCard(
