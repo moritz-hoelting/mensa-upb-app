@@ -27,7 +27,7 @@ class MensaSelectionDrawer extends StatelessWidget {
           var theme = Theme.of(context);
 
           return ListView(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(bottom: 16.0),
             children: <Widget>[
               SizedBox(
                 height: 150.0,
