@@ -117,40 +117,38 @@ class SettingsScreen extends StatelessWidget {
                                       spacing: 8.0,
                                       children: [
                                         Env.fundingUrl != null
-                                            ? InkWell(
-                                                onTap: () async {
+                                            ? InputChip(
+                                                label: Text(localizations
+                                                    .supportAppDescriptor),
+                                                avatar: const Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.redAccent,
+                                                ),
+                                                onPressed: () async {
                                                   await launchUrl(Uri.parse(
                                                       Env.fundingUrl!));
                                                 },
-                                                child: Chip(
-                                                  label: Text(localizations
-                                                      .supportAppDescriptor),
-                                                  avatar: const Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.redAccent,
-                                                  ),
-                                                ))
+                                              )
                                             : const SizedBox.shrink(),
-                                        InkWell(
-                                          onTap: () async {
+                                        InputChip(
+                                          label: const Text('Open Source'),
+                                          avatar: Icon(
+                                            Icons.code,
+                                            color:
+                                                Theme.of(context).dividerColor,
+                                          ),
+                                          onPressed: () async {
                                             await launchUrl(
                                                 Uri.parse(Env.repositoryUrl));
                                           },
-                                          child: Chip(
-                                            label: const Text('Open Source'),
-                                            avatar: Icon(
-                                              Icons.code,
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                            ),
-                                          ),
                                         ),
                                       ],
                                     )
                                   ],
                                 );
                               } else {
-                                return Text('${localizations.loadingMessage}...');
+                                return Text(
+                                    '${localizations.loadingMessage}...');
                               }
                             }),
                         leading: const Icon(Icons.info),
