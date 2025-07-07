@@ -66,8 +66,15 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
                     }
                   : null,
             ),
-            InkWell(
-              onTap: () async {
+            TextButton(
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 12.0)),
+                foregroundColor: WidgetStateProperty.all<Color>(
+                    Theme.of(context).colorScheme.onSurface),
+              ),
+              onPressed: () async {
                 DateTime? selectedDate = await showDatePicker(
                     context: context,
                     firstDate: DateUtils.dateOnly(DateTime.now()),
@@ -81,11 +88,8 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
               onLongPress: () {
                 userSelection.selectedDay = DateUtils.dateOnly(DateTime.now());
               },
-              child: Padding(
-                  padding: const EdgeInsetsGeometry.symmetric(
-                      vertical: 10.0, horizontal: 12.0),
-                  child: Text(DateFormat('dd.MM.yyyy')
-                      .format(userSelection.selectedDay))),
+              child: Text(
+                  DateFormat('dd.MM.yyyy').format(userSelection.selectedDay)),
             ),
             IconButton(
               tooltip: localization.nextDayTooltip,
