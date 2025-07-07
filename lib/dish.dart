@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
+import 'package:mensa_upb/price_level.dart';
 
 class DailyMenu {
   String? date;
@@ -120,6 +121,21 @@ class Prices {
     data['employees'] = employees;
     data['guests'] = guests;
     return data;
+  }
+
+  Map<PriceLevel, String> get map {
+    final Map<PriceLevel, String> map = {};
+    if (students != null) {
+      map[PriceLevel.student] = students!;
+    }
+    if (employees != null) {
+      map[PriceLevel.employee] = employees!;
+    }
+    if (guests != null) {
+      map[PriceLevel.guest] = guests!;
+    }
+
+    return map;
   }
 }
 

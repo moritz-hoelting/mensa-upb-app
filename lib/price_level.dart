@@ -18,14 +18,18 @@ enum PriceLevel {
     }
   }
 
-  String getFromPrices(Prices prices) {
+  String? getFromPrices(Prices? prices) {
+    if (prices == null) {
+      return null;
+    }
+
     switch (this) {
       case student:
-        return prices.students ?? '-';
+        return prices.students;
       case employee:
-        return prices.employees ?? '-';
+        return prices.employees;
       case guest:
-        return prices.guests ?? '-';
+        return prices.guests;
     }
   }
 }

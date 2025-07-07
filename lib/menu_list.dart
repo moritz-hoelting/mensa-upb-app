@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/dish_card.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/menu_fetcher.dart';
@@ -103,18 +102,7 @@ class MenuList extends StatelessWidget {
                 children: filteredDishes
                     .map(
                       (dish) => DishCard(
-                        name: dish.name ?? '---',
-                        price:
-                            userSelection.priceLevel.getFromPrices(dish.price ??
-                                Prices(
-                                  students: '-',
-                                  employees: '-',
-                                  guests: '-',
-                                )),
-                        imageUrl: dish.imageSrc,
-                        canteens: dish.canteens ?? List.empty(),
-                        type: DishType.fromBooleans(
-                            dish.vegetarian ?? false, dish.vegan ?? false),
+                        dish: dish,
                       ),
                     )
                     .toList(),
