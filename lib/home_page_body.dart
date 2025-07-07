@@ -1,137 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:mensa_upb/dish.dart';
-import 'package:mensa_upb/dish_card.dart';
-import 'package:mensa_upb/l10n/app_localizations.dart';
-import 'package:mensa_upb/menu_fetcher.dart';
-import 'package:mensa_upb/orientation_list.dart';
-import 'package:mensa_upb/user_selection.dart';
-import 'package:provider/provider.dart';
+import 'package:mensa_upb/menu_list.dart';
 
 class HomePageBody extends StatelessWidget {
-  const HomePageBody({super.key});
+  final TabController tabController;
+
+  const HomePageBody({super.key, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Consumer<UserSelectionModel>(
-        builder: (context, userSelection, child) {
-          final localizations = AppLocalizations.of(context)!;
-          var menu = MenuFetcher.fetchMenu(
-            userSelection.selectedCanteens,
-            userSelection.selectedDay,
-          );
-
-          return FutureBuilder(
-              future: menu,
-              builder: (context, snapshot) {
-                var errorColor = Theme.of(context).colorScheme.error;
-                var menuFetchErrorWidget = Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 50,
-                      color: errorColor,
-                    ),
-                    Text(
-                      localizations.menuFetchErrorMessage,
-                      textScaler: const TextScaler.linear(2),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: errorColor),
-                    ),
-                  ],
-                );
-                if (snapshot.hasData) {
-                  if (snapshot.data == null) {
-                    return menuFetchErrorWidget;
-                  }
-
-                  var json = snapshot.data!;
-                  var dishes = [
-                    ...json.mainDishes ?? [],
-                    ...json.sideDishes ?? [],
-                    ...json.desserts ?? []
-                  ];
-
-                  if (dishes.isEmpty) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.timer_off_outlined,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          localizations.canteenClosedMessage,
-                          textScaler: const TextScaler.linear(2),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    );
-                  }
-
-                  var filteredDishes = dishes
-                      .where((dish) =>
-                          dish.matchesFilter(userSelection.dishFilter))
-                      .toList();
-
-                  if (filteredDishes.isEmpty) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.filter_alt_off,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          localizations
-                              .noDishesMatchingFilterMessage,
-                          textScaler: const TextScaler.linear(2),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    );
-                  }
-
-                  return FractionallySizedBox(
-                    widthFactor: 0.9,
-                    child: OrientationList(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      children: filteredDishes
-                          .map(
-                            (dish) => DishCard(
-                              name: dish.name ?? '---',
-                              price: userSelection.priceLevel
-                                  .getFromPrices(dish.price ??
-                                      Prices(
-                                        students: '-',
-                                        employees: '-',
-                                        guests: '-',
-                                      )),
-                              imageUrl: dish.imageSrc,
-                              canteens: dish.canteens ?? List.empty(),
-                              type: DishType.fromBooleans(
-                                  dish.vegetarian ?? false,
-                                  dish.vegan ?? false),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return menuFetchErrorWidget;
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              });
-        },
+      child: TabBarView(
+        controller: tabController,
+        children: List.generate(
+          tabController.length,
+          (index) => MenuList(
+              date: DateUtils.dateOnly(DateTime.now())
+                  .add(Duration(days: index))),
+        ),
       ),
     );
   }

@@ -46,8 +46,54 @@ class MensaUpbApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final userSelection =
+        Provider.of<UserSelectionModel>(context, listen: false);
+
+    _tabController = TabController(
+      length: 8,
+      vsync: this,
+      initialIndex: _dateToIndex(userSelection.selectedDay),
+    );
+
+    userSelection.addListener(() {
+      final tabIndex = _dateToIndex(userSelection.selectedDay);
+      if (_tabController.index != tabIndex &&
+          tabIndex >= 0 &&
+          tabIndex < _tabController.length) {
+        _tabController.animateTo(tabIndex);
+      }
+    });
+
+    _tabController.addListener(() {
+      final userSelection =
+          Provider.of<UserSelectionModel>(context, listen: false);
+      if (_dateToIndex(userSelection.selectedDay) != _tabController.index) {
+        userSelection.selectedDay = DateUtils.dateOnly(DateTime.now())
+            .add(Duration(days: _tabController.index));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +112,14 @@ class HomePage extends StatelessWidget {
         ),
       ),
       drawer: const MensaSelectionDrawer(),
-      bottomNavigationBar: const DateSelectionBottomBar(),
-      body: const HomePageBody(),
+      bottomNavigationBar: DateSelectionBottomBar(
+        tabController: _tabController,
+      ),
+      body: HomePageBody(tabController: _tabController),
     );
+  }
+
+  int _dateToIndex(DateTime date) {
+    return date.difference(DateUtils.dateOnly(DateTime.now())).inDays;
   }
 }

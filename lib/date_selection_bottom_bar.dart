@@ -5,7 +5,9 @@ import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
 class DateSelectionBottomBar extends StatefulWidget {
-  const DateSelectionBottomBar({super.key});
+  final TabController tabController;
+
+  const DateSelectionBottomBar({super.key, required this.tabController});
 
   @override
   State<StatefulWidget> createState() {
@@ -14,9 +16,6 @@ class DateSelectionBottomBar extends StatefulWidget {
 }
 
 class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
-  bool previousDayEnabled = false;
-  bool nextDayEnabled = true;
-
   bool _selectDate(DateTime date, UserSelectionModel userSelection) {
     DateTime onlyDate = DateUtils.dateOnly(date);
     DateTime limitPast = DateUtils.dateOnly(DateTime.now());
@@ -28,11 +27,22 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
     } else {
       return false;
     }
-    setState(() {
-      previousDayEnabled = !onlyDate.isAtSameMomentAs(limitPast);
-      nextDayEnabled = !onlyDate.isAtSameMomentAs(limitFuture);
-    });
     return true;
+  }
+
+  bool get _previousDayEnabled {
+    DateTime limitPast = DateUtils.dateOnly(DateTime.now());
+    DateTime onlyDate = DateUtils.dateOnly(
+        Provider.of<UserSelectionModel>(context, listen: false).selectedDay);
+    return !onlyDate.isAtSameMomentAs(limitPast);
+  }
+
+  bool get _nextDayEnabled {
+    DateTime limitFuture =
+        DateUtils.dateOnly(DateTime.now()).add(const Duration(days: 7));
+    DateTime onlyDate = DateUtils.dateOnly(
+        Provider.of<UserSelectionModel>(context, listen: false).selectedDay);
+    return !onlyDate.isAtSameMomentAs(limitFuture);
   }
 
   @override
@@ -47,7 +57,7 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
             IconButton(
               tooltip: localization.previousDayTooltip,
               icon: const Icon(Icons.chevron_left),
-              onPressed: previousDayEnabled
+              onPressed: _previousDayEnabled
                   ? () {
                       DateTime previousDay = DateUtils.dateOnly(userSelection
                           .selectedDay
@@ -69,8 +79,6 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
                 }
               },
               onLongPress: () {
-                previousDayEnabled = false;
-                nextDayEnabled = true;
                 userSelection.selectedDay = DateUtils.dateOnly(DateTime.now());
               },
               child: Padding(
@@ -82,7 +90,7 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
             IconButton(
               tooltip: localization.nextDayTooltip,
               icon: const Icon(Icons.chevron_right),
-              onPressed: nextDayEnabled
+              onPressed: _nextDayEnabled
                   ? () {
                       DateTime nextDay = DateUtils.dateOnly(userSelection
                           .selectedDay
