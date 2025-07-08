@@ -116,20 +116,19 @@ class SettingsScreen extends StatelessWidget {
                                     Wrap(
                                       spacing: 8.0,
                                       children: [
-                                        Env.fundingUrl != null
-                                            ? InputChip(
-                                                label: Text(localizations
-                                                    .supportAppDescriptor),
-                                                avatar: const Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.redAccent,
-                                                ),
-                                                onPressed: () async {
-                                                  await launchUrl(Uri.parse(
-                                                      Env.fundingUrl!));
-                                                },
-                                              )
-                                            : const SizedBox.shrink(),
+                                        if (Env.fundingUrl != null)
+                                          InputChip(
+                                            label: Text(localizations
+                                                .supportAppDescriptor),
+                                            avatar: const Icon(
+                                              Icons.favorite,
+                                              color: Colors.redAccent,
+                                            ),
+                                            onPressed: () async {
+                                              await launchUrl(
+                                                  Uri.parse(Env.fundingUrl!));
+                                            },
+                                          ),
                                         InputChip(
                                           label: const Text('Open Source'),
                                           avatar: Icon(

@@ -100,66 +100,56 @@ class DishCard extends StatelessWidget {
                             ),
                           ),
 
-                          (hideCanteens
-                              ? const SizedBox.shrink()
-                              : const SizedBox(height: 8)),
+                          if (!hideCanteens) const SizedBox(height: 8),
 
                           // Canteen Chips
-                          (hideCanteens
-                              ? const SizedBox.shrink()
-                              : Wrap(
-                                  spacing: 6,
-                                  runSpacing: 4,
-                                  children:
-                                      (dish.canteens ?? []).map((canteen) {
-                                    var canteenName = Canteen.fromIdentifier(
-                                                canteen.toLowerCase())
-                                            ?.displayName ??
-                                        canteen;
-                                    return Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 6),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue.shade100,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        canteenName,
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black87),
-                                      ),
-                                    );
-                                  }).toList(),
-                                )),
+                          if (!hideCanteens)
+                            Wrap(
+                              spacing: 6,
+                              runSpacing: 4,
+                              children: (dish.canteens ?? []).map((canteen) {
+                                var canteenName = Canteen.fromIdentifier(
+                                            canteen.toLowerCase())
+                                        ?.displayName ??
+                                    canteen;
+                                return Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.shade100,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    canteenName,
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.black87),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
 
-                          (hideTypeIcon
-                              ? const SizedBox.shrink()
-                              : const SizedBox(height: 8)),
+                          if (!hideTypeIcon) const SizedBox(height: 8),
 
                           // Vegan/Vegetarian Icon
-                          (hideTypeIcon
-                              ? const SizedBox.shrink()
-                              : Row(
-                                  children: [
-                                    Icon(
-                                      dish.vegan == true
-                                          ? Icons.eco
-                                          : Icons.spa,
-                                      color: dish.vegan == true
-                                          ? Colors.green
-                                          : Colors.lightGreen,
-                                      size: 20,
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      dish.vegan == true
-                                          ? localizations.dishTypeVegan
-                                          : localizations.dishTypeVegetarian,
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                )),
+                          if (!hideTypeIcon)
+                            Row(
+                              children: [
+                                Icon(
+                                  dish.vegan == true ? Icons.eco : Icons.spa,
+                                  color: dish.vegan == true
+                                      ? Colors.green
+                                      : Colors.lightGreen,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  dish.vegan == true
+                                      ? localizations.dishTypeVegan
+                                      : localizations.dishTypeVegetarian,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                              ],
+                            ),
                         ],
                       );
                     },

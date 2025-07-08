@@ -65,27 +65,25 @@ class DishPage extends StatelessWidget {
               spacing: 8,
               runSpacing: 6,
               children: [
-                ((vegan || vegetarian)
-                    ? Chip(
-                        avatar: Icon(
-                          vegan ? Icons.eco : Icons.spa,
-                          color:
-                              vegan == true ? Colors.green : Colors.lightGreen,
-                          size: 20,
-                        ),
-                        label: Text(
-                          vegan == true
-                              ? localizations.dishTypeVegan
-                              : localizations.dishTypeVegetarian,
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      )
-                    : const SizedBox.shrink()),
+                if ((vegan || vegetarian))
+                  Chip(
+                    avatar: Icon(
+                      vegan ? Icons.eco : Icons.spa,
+                      color: vegan == true ? Colors.green : Colors.lightGreen,
+                      size: 20,
+                    ),
+                    label: Text(
+                      vegan == true
+                          ? localizations.dishTypeVegan
+                          : localizations.dishTypeVegetarian,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                 ...(dish.canteens ?? []).map((canteen) => Chip(
-                      backgroundColor: Colors.blue.shade100,
+                      backgroundColor: Colors.blue.withValues(alpha: 0.1),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.transparent),
@@ -105,7 +103,8 @@ class DishPage extends StatelessWidget {
                     children: [
                       Text(
                         '${entry.key.displayName(context)}:',
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -117,7 +116,6 @@ class DishPage extends StatelessWidget {
                 );
               }).toList(),
             ),
-
           ],
         ),
       ),
