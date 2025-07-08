@@ -1,8 +1,8 @@
 {
     "@@locale": "de",
-    "appTitle": "Mensa UPB",
+    "appTitle": "Mensa@UPB",
     "@appTitle": {
-        "description": "Der Titel der Mensa UPB App."
+        "description": "Der Titel der Mensa@UPB App."
     },
     "previousDayTooltip": "Vorheriger Tag",
     "@previousDayTooltip": {
