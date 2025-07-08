@@ -17,6 +17,7 @@ class DishPage extends StatelessWidget {
 
     final vegan = dish.vegan ?? false;
     final vegetarian = dish.vegetarian ?? false;
+    final dishType = DishType.fromBooleans(vegetarian, vegan);
 
     return Scaffold(
       appBar: AppBar(),
@@ -69,7 +70,7 @@ class DishPage extends StatelessWidget {
                   Chip(
                     avatar: Icon(
                       vegan ? Icons.eco : Icons.spa,
-                      color: vegan == true ? Colors.green : Colors.lightGreen,
+                      color: dishType.color,
                       size: 20,
                     ),
                     label: Text(

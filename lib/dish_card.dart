@@ -79,6 +79,7 @@ class DishCard extends StatelessWidget {
                     builder: (context, userSelection, child) {
                       final hideCanteens =
                           userSelection.selectedCanteens.length <= 1;
+                      final dishType = DishType.fromBooleans(dish.vegetarian ?? false, dish.vegan ?? false);
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,9 +137,7 @@ class DishCard extends StatelessWidget {
                               children: [
                                 Icon(
                                   dish.vegan == true ? Icons.eco : Icons.spa,
-                                  color: dish.vegan == true
-                                      ? Colors.green
-                                      : Colors.lightGreen,
+                                  color: dishType.color,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 6),

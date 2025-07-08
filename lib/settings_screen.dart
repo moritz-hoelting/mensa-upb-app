@@ -6,6 +6,7 @@ import 'package:mensa_upb/price_level.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -44,45 +45,79 @@ class SettingsScreen extends StatelessWidget {
                       child: Column(
                         spacing: 16.0,
                         children: [
-                          DropdownButtonFormField<PriceLevel>(
-                            value: userSelection.priceLevel,
-                            items: PriceLevel.values
-                                .map((e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e.displayName(context))))
-                                .toList(),
-                            onChanged: (value) {
-                              userSelection.priceLevel =
-                                  value ?? PriceLevel.student;
-                            },
-                            icon: const Icon(Icons.attach_money),
-                            decoration: InputDecoration(
-                              labelText: '${localizations.priceLevelLabel}:',
-                              border: OutlineInputBorder(),
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${localizations.priceLevelLabel}:',
+                                  style: theme.textTheme.labelLarge),
+                              ToggleSwitch(
+                                minWidth: double.infinity,
+                                dividerColor: theme.dividerColor,
+                                totalSwitches: PriceLevel.values.length,
+                                initialLabelIndex:
+                                    userSelection.priceLevel.index,
+                                labels: PriceLevel.values
+                                    .map((e) => e.displayName(context))
+                                    .toList(),
+                                inactiveBgColor:
+                                    theme.colorScheme.surfaceContainerHigh,
+                                activeBgColor: [theme.colorScheme.primary],
+                                activeFgColor: theme.colorScheme.onPrimary,
+                                icons: PriceLevel.values
+                                    .map((e) => e == PriceLevel.student
+                                        ? Icons.school
+                                        : e == PriceLevel.employee
+                                            ? Icons.work
+                                            : Icons.person)
+                                    .toList(),
+                                onToggle: (index) {
+                                  if (index == null) return;
+                                  userSelection.priceLevel =
+                                      PriceLevel.values[index];
+                                },
+                              ),
+                            ],
                           ),
-                          DropdownButtonFormField<DishType>(
-                            value: userSelection.dishFilter,
-                            items: DishType.values
-                                .map(
-                                  (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e.filterName(context)),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (value) {
-                              userSelection.dishFilter =
-                                  value ?? DishType.other;
-                            },
-                            icon: Icon(
-                                userSelection.dishFilter == DishType.other
-                                    ? Icons.filter_list_off
-                                    : Icons.filter_list),
-                            decoration: InputDecoration(
-                              labelText: '${localizations.dishFilterLabel}:',
-                              border: OutlineInputBorder(),
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${localizations.dishFilterLabel}:',
+                                  style: theme.textTheme.labelLarge),
+                              ToggleSwitch(
+                                minWidth: double.infinity,
+                                dividerColor: theme.dividerColor,
+                                totalSwitches: DishType.values.length,
+                                initialLabelIndex: DishType.values.length -
+                                    1 -
+                                    userSelection.dishFilter.index,
+                                labels: DishType.values.reversed
+                                    .map((e) => e.filterName(context))
+                                    .toList(),
+                                inactiveBgColor:
+                                    theme.colorScheme.surfaceContainerHigh,
+                                activeBgColors: DishType.values.reversed
+                                    .map((e) => e == DishType.other
+                                        ? [theme.colorScheme.primary]
+                                        : [e.color])
+                                    .toList(),
+                                activeFgColor:
+                                    (userSelection.dishFilter == DishType.other)
+                                        ? theme.colorScheme.onPrimary
+                                        : Colors.black,
+                                icons: DishType.values.reversed
+                                    .map((e) => e == DishType.vegan
+                                        ? Icons.eco
+                                        : e == DishType.vegetarian
+                                            ? Icons.spa
+                                            : Icons.fastfood)
+                                    .toList(),
+                                onToggle: (index) {
+                                  if (index == null) return;
+                                  userSelection.dishFilter =
+                                      DishType.values.reversed.toList()[index];
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),

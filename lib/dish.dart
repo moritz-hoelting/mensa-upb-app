@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/price_level.dart';
@@ -162,6 +163,17 @@ enum DishType {
         return AppLocalizations.of(context)!.dishTypeVegetarian;
       case DishType.other:
         return AppLocalizations.of(context)!.dishFilterAll;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case DishType.vegan:
+        return Colors.green;
+      case DishType.vegetarian:
+        return Colors.lightGreen;
+      case DishType.other:
+        return Colors.grey.shade700;
     }
   }
 }
