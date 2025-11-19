@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.hoelting.mensaupb"
+    namespace = "dev.hoelting.mensa_upb"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "dev.hoelting.mensaupb"
+        applicationId = "dev.hoelting.mensa_upb"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

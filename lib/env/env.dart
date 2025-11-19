@@ -3,8 +3,8 @@ part 'env.g.dart';
 
 @Envied(path: '.env')
 abstract class Env {
-  @EnviedField(varName: 'MENSA_API_URL')
-  static const String mensaApiUrl = _Env.mensaApiUrl;
+  @EnviedField(varName: 'MENSA_API_URL', obfuscate: true)
+  static final String mensaApiUrl = _Env.mensaApiUrl;
   @EnviedField(varName: 'FUNDING_URL', optional: true)
   static const String? fundingUrl = _Env.fundingUrl;
   @EnviedField(varName: 'APP_AUTHOR', defaultValue: 'Moritz Hölting')
