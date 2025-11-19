@@ -1,11 +1,11 @@
 {
-    "name": "mensa_upb",
-    "short_name": "mensa_upb",
+    "name": "Mensa@UPB",
+    "short_name": "Mensa@UPB",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Canteen plan of the University of Paderborn.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
