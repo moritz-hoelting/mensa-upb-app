@@ -48,7 +48,8 @@ class DishCard extends StatelessWidget {
                   tag: 'dish-image-${dish.name}',
                   child: ClipRRect(
                     borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(borderRadiusValue)),
+                      top: Radius.circular(borderRadiusValue),
+                    ),
                     child: dish.imageSrc != null
                         ? Image.network(
                             dish.imageSrc!,
@@ -79,7 +80,8 @@ class DishCard extends StatelessWidget {
                     builder: (context, userSelection, child) {
                       final hideCanteens =
                           userSelection.selectedCanteens.length <= 1;
-                      final dishType = DishType.fromBooleans(dish.vegetarian ?? false, dish.vegan ?? false);
+                      final dishType = DishType.fromBooleans(
+                          dish.vegetarian ?? false, dish.vegan ?? false);
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

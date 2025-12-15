@@ -19,38 +19,48 @@ class DishPage extends StatelessWidget {
     final vegetarian = dish.vegetarian ?? false;
     final dishType = DishType.fromBooleans(vegetarian, vegan);
 
+    final screenSize = MediaQuery.of(context).size;
+
+    final double imageHeight =
+        (screenSize.height / 2.5).floorToDouble().clamp(250.0, 500.0);
+
+    final image = ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: dish.imageSrc != null
+          ? Image.network(
+              dish.imageSrc!,
+              height: imageHeight,
+              width: null,
+              fit: BoxFit.fitHeight,
+            )
+          : Container(
+              height: imageHeight,
+              width: imageHeight * 1.5,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey[300]
+                  : Colors.grey[800],
+              child: const Icon(
+                Icons.image_not_supported,
+                size: 80,
+                color: Colors.grey,
+              ),
+            ),
+    );
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: screenSize.width > 500
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.stretch,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Image or Placeholder
             Hero(
               tag: 'dish-image-${dish.name}',
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: dish.imageSrc != null
-                    ? Image.network(
-                        dish.imageSrc!,
-                        height: 250,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        height: 250,
-                        width: double.infinity,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey[300]
-                            : Colors.grey[800],
-                        child: const Icon(
-                          Icons.image_not_supported,
-                          size: 80,
-                          color: Colors.grey,
-                        ),
-                      ),
-              ),
+              child: screenSize.width > 500 ? image : Center(child: image),
             ),
             const SizedBox(height: 16),
 

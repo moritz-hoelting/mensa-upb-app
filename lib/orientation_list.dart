@@ -21,9 +21,8 @@ class OrientationList extends StatelessWidget {
       padding: padding,
       child: OrientationBuilder(
         builder: (context, _) {
-          final isLandscape =
-              MediaQuery.of(context).orientation == Orientation.landscape;
-          final columns = isLandscape ? 2 : 1;
+          final columns =
+              (MediaQuery.of(context).size.width / 350).floor().clamp(1, 4);
           return LayoutGrid(
             rowGap: rowGap,
             columnGap: columnGap,
