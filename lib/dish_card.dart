@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mensa_upb/canteen.dart';
 import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/dish_page.dart';
@@ -8,15 +9,18 @@ import 'package:provider/provider.dart';
 
 class DishCard extends StatelessWidget {
   final Dish dish;
+  final DateTime date;
 
   const DishCard({
     super.key,
     required this.dish,
+    required this.date,
   });
 
   @override
   Widget build(BuildContext context) {
     final hideTypeIcon = !(dish.vegan ?? false) && !(dish.vegetarian ?? false);
+    final locale = Localizations.localeOf(context).toString();
     final localizations = AppLocalizations.of(context)!;
 
     const borderRadiusValue = 12.0;
@@ -25,13 +29,14 @@ class DishCard extends StatelessWidget {
     return Consumer<UserSelectionModel>(
       builder: (context, userSelection, child) {
         final price = userSelection.priceLevel.getFromPrices(dish.price) ?? '-';
-        String formattedPrice = '${price.replaceAll('.', ',')}€';
+        String formattedPrice = '${NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '').format(num.parse(price))} €';
 
         return InkWell(
           borderRadius: borderRadius,
           onTap: () => {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => DishPage(
+                date: date,
                 dish: dish,
               ),
             ))

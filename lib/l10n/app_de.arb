@@ -100,5 +100,52 @@
     "loadingMessage": "Laden...",
     "@loadingMessage": {
         "description": "Nachricht, die angezeigt wird, während Daten geladen werden."
+    },
+    "nutritionHeader": "Nährwertinformationen",
+    "@nutritionHeader": {
+        "description": "Überschrift für den Nährwertinformationsbereich."
+    },
+    "nutritionEnergy": "Brennwert: {kjoules} kJ ({kcalories} kcal)",
+    "@nutritionEnergy": {
+        "description": "Bezeichnung für den Energiegehalt im Nährwertinformationsbereich.",
+        "placeholders": {
+            "kjoules": {
+                "type": "String"
+            },
+            "kcalories": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionProtein": "Eiweiß: {grams} g",
+    "@nutritionProtein": {
+        "description": "Bezeichnung für den Proteingehalt im Nährwertinformationsbereich.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionCarbohydrates": "Kohlenhydrate: {grams} g",
+    "@nutritionCarbohydrates": {
+        "description": "Bezeichnung für den Kohlenhydratgehalt im Nährwertinformationsbereich.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionFat": "Fett: {grams} g",
+    "@nutritionFat": {
+        "description": "Bezeichnung für den Fettgehalt im Nährwertinformationsbereich.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionFetchErrorMessage": "Nährwertinformationen nicht verfügbar",
+    "@nutritionFetchErrorMessage": {
+        "description": "Fehlermeldung, wenn die Nährwertinformationen nicht geladen werden konnten."
     }
 }

@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:mensa_upb/canteen.dart';
 import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
+import 'package:mensa_upb/nutrition_fetcher.dart';
+import 'package:mensa_upb/nutrition_information_display.dart';
 
 class DishPage extends StatelessWidget {
   final Dish dish;
+  final DateTime date;
 
   const DishPage({
     super.key,
     required this.dish,
+    required this.date,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final locale = Localizations.localeOf(context).toString();
     final localizations = AppLocalizations.of(context)!;
 
     final vegan = dish.vegan ?? false;
     final vegetarian = dish.vegetarian ?? false;
     final dishType = DishType.fromBooleans(vegetarian, vegan);
+
+    var priceDecimalPattern =
+        NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '');
+
+    final nutritionInfo =
+        NutritionFetcher.fetchNutrition(date, dish.name ?? '');
 
     final screenSize = MediaQuery.of(context).size;
 
@@ -55,7 +68,6 @@ class DishPage extends StatelessWidget {
           crossAxisAlignment: screenSize.width > 500
               ? CrossAxisAlignment.start
               : CrossAxisAlignment.stretch,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Image or Placeholder
             Hero(
@@ -93,21 +105,30 @@ class DishPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                ...(dish.canteens ?? []).map((canteen) => Chip(
-                      backgroundColor: Colors.blue.withValues(alpha: 0.1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(color: Colors.transparent),
-                      ),
-                      label:
-                          Text(canteen, style: const TextStyle(fontSize: 14)),
-                    ))
+                ...(dish.canteens ?? []).map((canteen) {
+                  var canteenName =
+                      Canteen.fromIdentifier(canteen.toLowerCase())
+                              ?.displayName ??
+                          canteen;
+                  return Chip(
+                    backgroundColor: Colors.blue.withValues(alpha: 0.1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(color: Colors.transparent),
+                    ),
+                    label:
+                        Text(canteenName, style: const TextStyle(fontSize: 14)),
+                  );
+                })
               ],
             ),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: (dish.price ?? Prices()).map.entries.map((entry) {
+                final price =
+                    priceDecimalPattern.format(num.parse(entry.value));
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
                   child: Row(
@@ -119,7 +140,7 @@ class DishPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '${entry.value.replaceAll('.', ',')}€',
+                        '$price €',
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
@@ -127,6 +148,8 @@ class DishPage extends StatelessWidget {
                 );
               }).toList(),
             ),
+
+            NutritionInformationDisplay(nutritionInfo: nutritionInfo),
           ],
         ),
       ),

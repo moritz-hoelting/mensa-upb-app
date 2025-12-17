@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/price_level.dart';
 

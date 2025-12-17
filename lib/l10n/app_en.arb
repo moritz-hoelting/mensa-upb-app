@@ -100,5 +100,52 @@
     "loadingMessage": "Loading...",
     "@loadingMessage": {
         "description": "Message displayed while the app is loading data."
+    },
+    "nutritionHeader": "Nutritional Information",
+    "@nutritionHeader": {
+        "description": "Header for the nutritional information section in the dish details."
+    },
+    "nutritionEnergy": "Energy: {kjoules} kJ ({kcalories} kcal)",
+    "@nutritionEnergy": {
+        "description": "Label for the energy content in the nutritional information section.",
+        "placeholders": {
+            "kjoules": {
+                "type": "String"
+            },
+            "kcalories": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionProtein": "Protein: {grams} g",
+    "@nutritionProtein": {
+        "description": "Label for the protein content in the nutritional information section.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionCarbohydrates": "Carbohydrates: {grams} g",
+    "@nutritionCarbohydrates": {
+        "description": "Label for the carbohydrate content in the nutritional information section.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionFat": "Fat: {grams} g",
+    "@nutritionFat": {
+        "description": "Label for the fat content in the nutritional information section.",
+        "placeholders": {
+            "grams": {
+                "type": "String"
+            }
+        }
+    },
+    "nutritionFetchErrorMessage": "Nutritional information not available",
+    "@nutritionFetchErrorMessage": {
+        "description": "Error message when the nutritional information could not be loaded."
     }
 }

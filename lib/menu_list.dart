@@ -102,6 +102,7 @@ class MenuList extends StatelessWidget {
                 children: filteredDishes
                     .map(
                       (dish) => DishCard(
+                        date: date,
                         dish: dish,
                       ),
                     )
