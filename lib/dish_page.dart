@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mensa_upb/canteen.dart';
@@ -40,11 +42,27 @@ class DishPage extends StatelessWidget {
     final image = ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: dish.imageSrc != null
-          ? Image.network(
-              dish.imageSrc!,
-              height: imageHeight,
-              width: null,
-              fit: BoxFit.fitHeight,
+          ? FutureBuilder<double>(
+              future: getImageAspectRatio(NetworkImage(dish.imageSrc!)),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return SizedBox(height: imageHeight);
+                }
+
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: imageHeight),
+                    child: AspectRatio(
+                      aspectRatio: snapshot.data!,
+                      child: Image.network(
+                        dish.imageSrc!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                );
+              },
             )
           : Container(
               height: imageHeight,
@@ -155,4 +173,26 @@ class DishPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<double> getImageAspectRatio(ImageProvider provider) async {
+  final completer = Completer<double>();
+
+  final stream = provider.resolve(const ImageConfiguration());
+  late final ImageStreamListener listener;
+
+  listener = ImageStreamListener(
+    (ImageInfo info, bool _) {
+      final image = info.image;
+      completer.complete(image.width / image.height);
+      stream.removeListener(listener);
+    },
+    onError: (error, stackTrace) {
+      completer.completeError(error, stackTrace);
+      stream.removeListener(listener);
+    },
+  );
+
+  stream.addListener(listener);
+  return completer.future;
 }
