@@ -7,6 +7,8 @@ import 'package:mensa_upb/dish.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
 import 'package:mensa_upb/nutrition_fetcher.dart';
 import 'package:mensa_upb/nutrition_information_display.dart';
+import 'package:mensa_upb/price_history_display.dart';
+import 'package:mensa_upb/price_history_fetcher.dart';
 
 class DishPage extends StatelessWidget {
   final Dish dish;
@@ -28,11 +30,13 @@ class DishPage extends StatelessWidget {
     final vegetarian = dish.vegetarian ?? false;
     final dishType = DishType.fromBooleans(vegetarian, vegan);
 
-    var priceDecimalPattern =
-        NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '');
+    var currencyFormatter =
+        NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '€');
 
     final nutritionInfo =
         NutritionFetcher.fetchNutrition(date, dish.name ?? '');
+
+    final priceHistory = PriceHistoryFetcher.fetchPriceHistory(dish.name ?? '');
 
     final screenSize = MediaQuery.of(context).size;
 
@@ -144,8 +148,7 @@ class DishPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: (dish.price ?? Prices()).map.entries.map((entry) {
-                final price =
-                    priceDecimalPattern.format(num.parse(entry.value));
+                final price = currencyFormatter.format(num.parse(entry.value));
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
@@ -158,7 +161,7 @@ class DishPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        '$price €',
+                        price,
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
@@ -168,6 +171,24 @@ class DishPage extends StatelessWidget {
             ),
 
             NutritionInformationDisplay(nutritionInfo: nutritionInfo),
+
+            FutureBuilder(future: priceHistory, builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data != null &&
+                    snapshot.data!.isNotEmpty) {
+                  return PriceHistoryDisplay(data: snapshot.data!);
+                } else {
+                  return const SizedBox.shrink();
+                }
+              } else {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+            }),
           ],
         ),
       ),

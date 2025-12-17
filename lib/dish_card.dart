@@ -29,7 +29,7 @@ class DishCard extends StatelessWidget {
     return Consumer<UserSelectionModel>(
       builder: (context, userSelection, child) {
         final price = userSelection.priceLevel.getFromPrices(dish.price) ?? '-';
-        String formattedPrice = '${NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '').format(num.parse(price))} €';
+        String formattedPrice = NumberFormat.currency(locale: locale, decimalDigits: 2, symbol: '€').format(num.parse(price));
 
         return InkWell(
           borderRadius: borderRadius,

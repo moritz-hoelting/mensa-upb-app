@@ -32,4 +32,15 @@ enum PriceLevel {
         return prices.guests;
     }
   }
+
+  String get plural {
+    switch (this) {
+      case student:
+        return 'students';
+      case employee:
+        return 'employees';
+      case guest:
+        return 'guests';
+    }
+  }
 }
