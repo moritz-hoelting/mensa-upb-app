@@ -27,16 +27,20 @@ class UserSelectionModel extends ChangeNotifier {
 
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
-    _academicaSelected = _prefs.getBool(Canteen.academica.preferenceKey) ?? true;
+    _academicaSelected =
+        _prefs.getBool(Canteen.academica.preferenceKey) ?? true;
     _forumSelected = _prefs.getBool(Canteen.forum.preferenceKey) ?? true;
-    _grillcafeSelected = _prefs.getBool(Canteen.grillCafe.preferenceKey) ?? true;
+    _grillcafeSelected =
+        _prefs.getBool(Canteen.grillCafe.preferenceKey) ?? true;
     _zm2Selected = _prefs.getBool(Canteen.zm2.preferenceKey) ?? false;
     _basilicaSelected = _prefs.getBool(Canteen.basilica.preferenceKey) ?? false;
     _atriumSelected = _prefs.getBool(Canteen.atrium.preferenceKey) ?? false;
 
-    _priceLevel = PriceLevel.values[_prefs.getInt('priceLevelSelected') ?? PriceLevel.student.index];
+    _priceLevel = PriceLevel.values[
+        _prefs.getInt('priceLevelSelected') ?? PriceLevel.student.index];
 
-    _dishFilter = DishType.values[_prefs.getInt('dishFilterSelected') ?? DishType.other.index];
+    _dishFilter = DishType
+        .values[_prefs.getInt('dishFilterSelected') ?? DishType.other.index];
 
     notifyListeners();
   }

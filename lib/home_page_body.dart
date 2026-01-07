@@ -3,8 +3,10 @@ import 'package:mensa_upb/menu_list.dart';
 
 class HomePageBody extends StatelessWidget {
   final TabController tabController;
+  final int indexOffset;
 
-  const HomePageBody({super.key, required this.tabController});
+  const HomePageBody(
+      {super.key, required this.tabController, required this.indexOffset});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class HomePageBody extends StatelessWidget {
           tabController.length,
           (index) => MenuList(
               date: DateUtils.dateOnly(DateTime.now())
-                  .add(Duration(days: index))),
+                  .add(Duration(days: index - indexOffset))),
         ),
       ),
     );

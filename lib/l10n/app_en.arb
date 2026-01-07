@@ -40,9 +40,9 @@
     "@menuFetchErrorMessage": {
         "description": "Error message when the menu for the selected day could not be loaded."
     },
-    "canteenClosedMessage": "Canteen closed",
-    "@canteenClosedMessage": {
-        "description": "Label indicating that the canteen is closed for the selected day."
+    "menuNoDataMessage": "Canteen closed / No data available",
+    "@menuNoDataMessage": {
+        "description": "Label indicating that the canteen is closed or no data is available for the selected day."
     },
     "noDishesMatchingFilterMessage": "No dishes match your filter",
     "@noDishesMatchingFilterMessage": {

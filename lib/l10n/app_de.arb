@@ -40,9 +40,9 @@
     "@menuFetchErrorMessage": {
         "description": "Fehlermeldung, wenn kein Menü für den ausgewählten Tag geladen werden konnte."
     },
-    "canteenClosedMessage": "Mensa geschlossen",
-    "@canteenClosedMessage": {
-        "description": "Nachricht, die anzeigt, dass die Mensa für den ausgewählten Tag geschlossen ist."
+    "menuNoDataMessage": "Mensa geschlossen / Keine Daten verfügbar",
+    "@menuNoDataMessage": {
+        "description": "Nachricht, die anzeigt, dass die Mensa für den ausgewählten Tag geschlossen ist oder keine Daten verfügbar sind."
     },
     "noDishesMatchingFilterMessage": "Keine Gerichte entsprechen deinem Filter",
     "@noDishesMatchingFilterMessage": {

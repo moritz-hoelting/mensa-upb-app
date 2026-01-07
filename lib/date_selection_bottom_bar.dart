@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 
 class DateSelectionBottomBar extends StatefulWidget {
   final TabController tabController;
+  final DateTime firstDate;
 
-  const DateSelectionBottomBar({super.key, required this.tabController});
+  const DateSelectionBottomBar(
+      {super.key, required this.tabController, required this.firstDate});
 
   @override
   State<StatefulWidget> createState() {
@@ -18,11 +20,11 @@ class DateSelectionBottomBar extends StatefulWidget {
 class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
   bool _selectDate(DateTime date, UserSelectionModel userSelection) {
     DateTime onlyDate = DateUtils.dateOnly(date);
-    DateTime limitPast = DateUtils.dateOnly(DateTime.now());
     DateTime limitFuture =
-        DateUtils.dateOnly(DateTime.now().add(const Duration(days: 7)));
+        DateUtils.dateOnly(DateTime.now().add(const Duration(days: 14)));
     if (onlyDate.isBefore(limitFuture.add(const Duration(seconds: 1))) &&
-        onlyDate.isAfter(limitPast.subtract(const Duration(seconds: 1)))) {
+        onlyDate
+            .isAfter(widget.firstDate.subtract(const Duration(seconds: 1)))) {
       userSelection.selectedDay = onlyDate;
     } else {
       return false;
@@ -31,15 +33,15 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
   }
 
   bool get _previousDayEnabled {
-    DateTime limitPast = DateUtils.dateOnly(DateTime.now());
-    DateTime onlyDate = DateUtils.dateOnly(
-        Provider.of<UserSelectionModel>(context, listen: false).selectedDay);
-    return !onlyDate.isAtSameMomentAs(limitPast);
+    final userSelection =
+        Provider.of<UserSelectionModel>(context, listen: false);
+    DateTime onlyDate = DateUtils.dateOnly(userSelection.selectedDay);
+    return !onlyDate.isAtSameMomentAs(widget.firstDate);
   }
 
   bool get _nextDayEnabled {
     DateTime limitFuture =
-        DateUtils.dateOnly(DateTime.now()).add(const Duration(days: 7));
+        DateUtils.dateOnly(DateTime.now()).add(const Duration(days: 14));
     DateTime onlyDate = DateUtils.dateOnly(
         Provider.of<UserSelectionModel>(context, listen: false).selectedDay);
     return !onlyDate.isAtSameMomentAs(limitFuture);
@@ -77,9 +79,9 @@ class _DateSelectionBottomBarState extends State<DateSelectionBottomBar> {
               onPressed: () async {
                 DateTime? selectedDate = await showDatePicker(
                     context: context,
-                    firstDate: DateUtils.dateOnly(DateTime.now()),
+                    firstDate: widget.firstDate,
                     lastDate: DateUtils.dateOnly(
-                        DateTime.now().add(const Duration(days: 7))),
+                        DateTime.now().add(const Duration(days: 14))),
                     initialDate: userSelection.selectedDay);
                 if (selectedDate != null) {
                   _selectDate(selectedDate, userSelection);

@@ -3,6 +3,7 @@ import 'package:mensa_upb/date_selection_bottom_bar.dart';
 import 'package:mensa_upb/drawer.dart';
 import 'package:mensa_upb/home_page_body.dart';
 import 'package:mensa_upb/l10n/app_localizations.dart';
+import 'package:mensa_upb/menu_fetcher.dart';
 import 'package:mensa_upb/user_selection.dart';
 import 'package:provider/provider.dart';
 
@@ -40,14 +41,29 @@ class MensaUpbApp extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         // A widget which will be started on application startup
-        home: const HomePage(),
+        home: FutureBuilder(
+          future: MenuFetcher.queryFirstDate(),
+          builder: (context, firstDateSnapshot) {
+            if (firstDateSnapshot.hasData) {
+              return HomePage(firstDate: firstDateSnapshot.data!);
+            } else {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final DateTime firstDate;
+
+  const HomePage({super.key, required this.firstDate});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -64,8 +80,11 @@ class _HomePageState extends State<HomePage>
     final userSelection =
         Provider.of<UserSelectionModel>(context, listen: false);
 
+    final int daysSinceFirstDate =
+        DateUtils.dateOnly(DateTime.now()).difference(widget.firstDate).inDays;
+
     _tabController = TabController(
-      length: 8,
+      length: daysSinceFirstDate + 15,
       vsync: this,
       initialIndex: _dateToIndex(userSelection.selectedDay),
     );
@@ -83,7 +102,7 @@ class _HomePageState extends State<HomePage>
       final userSelection =
           Provider.of<UserSelectionModel>(context, listen: false);
       if (_dateToIndex(userSelection.selectedDay) != _tabController.index) {
-        userSelection.selectedDay = DateUtils.dateOnly(DateTime.now())
+        userSelection.selectedDay = DateUtils.dateOnly(widget.firstDate)
             .add(Duration(days: _tabController.index));
       }
     });
@@ -98,6 +117,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    final int daysSinceFirstDate =
+        DateUtils.dateOnly(DateTime.now()).difference(widget.firstDate).inDays;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -114,12 +135,16 @@ class _HomePageState extends State<HomePage>
       drawer: const MensaSelectionDrawer(),
       bottomNavigationBar: DateSelectionBottomBar(
         tabController: _tabController,
+        firstDate: widget.firstDate,
       ),
-      body: HomePageBody(tabController: _tabController),
+      body: HomePageBody(
+        tabController: _tabController,
+        indexOffset: daysSinceFirstDate,
+      ),
     );
   }
 
   int _dateToIndex(DateTime date) {
-    return date.difference(DateUtils.dateOnly(DateTime.now())).inDays;
+    return date.difference(widget.firstDate).inDays;
   }
 }

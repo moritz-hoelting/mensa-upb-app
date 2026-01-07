@@ -62,7 +62,7 @@ class MenuList extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   Text(
-                    localizations.canteenClosedMessage,
+                    localizations.menuNoDataMessage,
                     textScaler: const TextScaler.linear(2),
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.grey),
