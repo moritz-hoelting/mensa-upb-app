@@ -48,7 +48,9 @@ class MenuList extends StatelessWidget {
             var dishes = [
               ...json.mainDishes ?? [],
               ...json.sideDishes ?? [],
-              ...json.desserts ?? []
+              ...json.soupDishes ?? [],
+              ...json.dessertDishes ?? [],
+              ...json.otherDishes ?? []
             ];
 
             if (dishes.isEmpty) {

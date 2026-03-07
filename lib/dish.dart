@@ -6,9 +6,11 @@ class DailyMenu {
   String? date;
   List<Dish>? mainDishes;
   List<Dish>? sideDishes;
-  List<Dish>? desserts;
+  List<Dish>? soupDishes;
+  List<Dish>? dessertDishes;
+  List<Dish>? otherDishes;
 
-  DailyMenu({this.date, this.mainDishes, this.sideDishes, this.desserts});
+  DailyMenu({this.date, this.mainDishes, this.sideDishes, this.soupDishes, this.dessertDishes, this.otherDishes});
 
   DailyMenu.fromJson(Map<String, dynamic> json) {
     date = json['date'];
@@ -24,10 +26,22 @@ class DailyMenu {
         sideDishes!.add(Dish.fromJson(v));
       });
     }
-    if (json['desserts'] != null) {
-      desserts = <Dish>[];
-      json['desserts'].forEach((v) {
-        desserts!.add(Dish.fromJson(v));
+    if (json['soup_dishes'] != null) {
+      soupDishes = <Dish>[];
+      json['soup_dishes'].forEach((v) {
+        soupDishes!.add(Dish.fromJson(v));
+      });
+    }
+    if (json['dessert_dishes'] != null) {
+      dessertDishes = <Dish>[];
+      json['dessert_dishes'].forEach((v) {
+        dessertDishes!.add(Dish.fromJson(v));
+      });
+    }
+    if (json['other_dishes'] != null) {
+      otherDishes = <Dish>[];
+      json['other_dishes'].forEach((v) {
+        otherDishes!.add(Dish.fromJson(v));
       });
     }
   }
@@ -41,8 +55,14 @@ class DailyMenu {
     if (sideDishes != null) {
       data['side_dishes'] = sideDishes!.map((v) => v.toJson()).toList();
     }
-    if (desserts != null) {
-      data['desserts'] = desserts!.map((v) => v.toJson()).toList();
+    if (soupDishes != null) {
+      data['soup_dishes'] = soupDishes!.map((v) => v.toJson()).toList();
+    }
+    if (dessertDishes != null) {
+      data['dessert_dishes'] = dessertDishes!.map((v) => v.toJson()).toList();
+    }
+    if (otherDishes != null) {
+      data['other_dishes'] = otherDishes!.map((v) => v.toJson()).toList();
     }
     return data;
   }
